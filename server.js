@@ -75,6 +75,32 @@ app.get('/magic/:question',(req,res) => {
 
 
 
+//function if is Fibonacci number 
+function Fibonacci(num) {
+    let a = 0, b=1 ;
+    while (a < num) {
+        let c = a ;
+        a = b ;
+        b = c + b ;
+    }
+    return a === num ;
+}
+
+
+// Create a route if a number is a Fibonacci
+app.get('/fibonacci/:number', (req,res) => {
+    const numero = req.params.number
+    const number = parseInt(numero)
+
+    if(Fibonacci(number)) {
+        res.send(`<h1 style = 'color : red'>${number} </h1><h1>For sure is fibonnaci Number</h1>`)
+    } else {
+        res.send(`<h1 style ="color : red">${number}</h1><h1> Sorry is not Fibonnaci number</h1>`)
+    }
+});
+
+
+
 
 
 
