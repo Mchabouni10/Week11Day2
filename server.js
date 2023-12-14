@@ -1,3 +1,4 @@
+
 // 1.require express()
 const express = require ('express')
 
@@ -8,11 +9,16 @@ const app = express()
 
 
 
-// ========= the require statement ======
-app.set('viewport', 'jsx')
 
-// ======= views for React Components ======
+// ==================== require statement
+app.set('view engine', 'jsx'); 
+
+
+
+
+//======== view Template (React components)
 app.engine('jsx', require('express-react-views').createEngine());
+
 
 
 // 3. create routes 
@@ -34,6 +40,18 @@ app.get('/greeting/:name', (req,res) => {
     res.send(`${responseText}`)
 })
 
+// 6. create tip calculator:
+app.get('/tips/:total/:percentage',(req,res) => {
+    const total = parseFloat(req.params.total);
+    const percentage = parseFloat (req.params.percentage)
+
+    if(isNaN(total) || isNaN(percentage)){ 
+        res.send('Please provide a Number')
+    return;
+}
+   const tipAmount = (total * percentage)/100
+   res.send(`The tip amount is: <h1 style="color: red;">$${tipAmount}</h1>`);
+})
 
 
 
